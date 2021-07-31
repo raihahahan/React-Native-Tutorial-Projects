@@ -18,3 +18,7 @@ This repo contains the projects done in [The Complete React Native + Hooks Cours
 * React Context to manage data structure
 * JSON server
 
+## Useful links
+
+* [What Is package.json?](https://heynode.com/tutorial/what-packagejson/)
+
