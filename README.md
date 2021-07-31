@@ -6,9 +6,10 @@ This repo contains the projects done in Stephen Grider's React Native Tutorial o
 
 ### Food Yelp
 
-* Hooks learnt: useState()
+* Hooks learnt: useState(), useEffect()
 * Made API requests to yelp using axios
 * React Native basics
+* Learnt how to effectively abstract and reuse components
 * Created custom hooks
 
 ### Blog Project (ongoing)
