@@ -12,7 +12,7 @@ This repo contains the projects done in [The Complete React Native + Hooks Cours
 * Learnt how to effectively abstract and reuse components
 * Created custom hooks
 
-### Blog Project (ongoing)
+### Blog Project
 
 * Hooks learnt: useReducer(), useEffect(), useContext(), useLayoutEffect(),
 * React Context to manage data structure
