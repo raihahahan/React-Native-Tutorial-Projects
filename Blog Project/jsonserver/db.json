@@ -1,0 +1,44 @@
+{
+  "blogposts": [
+    {
+      "id": 1,
+      "title": "API POST",
+      "content": "content for my post"
+    },
+    {
+      "id": 2,
+      "title": "API POST 2",
+      "content": "content for my post"
+    },
+    {
+      "title": "Newly created API post",
+      "content": "Some content",
+      "id": 3
+    },
+    {
+      "title": "3rd post creation",
+      "content": "yeah",
+      "id": 4
+    },
+    {
+      "title": "test focus",
+      "content": "",
+      "id": 5
+    },
+    {
+      "title": "test focus2",
+      "content": "",
+      "id": 6
+    },
+    {
+      "title": "m",
+      "content": "",
+      "id": 7
+    },
+    {
+      "title": "hib",
+      "content": "kvmvmvkg",
+      "id": 10
+    }
+  ]
+}

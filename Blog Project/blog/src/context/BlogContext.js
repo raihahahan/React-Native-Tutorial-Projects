@@ -1,107 +1,79 @@
-import createDataContext from './createDataContext';
-
-// const BlogContext = createContext();
+import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 const blogReducer = (state, action) => {
-    switch (action.type) {
-        case 'delete_blogpost':
-            return state.filter((blogPost) => blogPost.id !== action.payload);
-        case 'add_blogpost':
-            return [...state, 
-                { 
-                    title: action.payload.title, 
-                    id: Math.floor(Math.random() * 99999),
-                    content: action.payload.content,
-                }];
-        case 'edit_blogpost':
-            return state.map((blogPost) => {
-                return blogPost.id === action.payload.id 
-                ? action.payload 
-                : 
-                blogPost;
-            })
-        default: 
-            return state;
-    }
+  switch (action.type) {
+    case "delete_blogpost":
+      return state.filter((blogPost) => blogPost.id !== action.payload);
+    case "edit_blogpost":
+      return state.map((blogPost) => {
+        return blogPost.id === action.payload.id ? action.payload : blogPost;
+      });
+    case "get_blogposts":
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
-const addBlogPost = dispatch => { // function that describes how we want to change our data
-    return (title, content, callback) => {
-        dispatch({ type: 'add_blogpost', payload: { title, content } })
-        if (callback) callback(); // dispatch must always pass in an argument that is an object with properties type and payload
-    } // inner function here is what we end up calling from inside our component
+const getBlogPosts = (dispatch) => {
+  return async () => {
+    try {
+      const response = await jsonServer.get("/blogposts"); // response = array of blogposts. response.data = {}
+      dispatch({ type: "get_blogposts", payload: response.data });
+    } catch (e) {
+      alert(e);
+    }
+  };
 };
 
-const deleteBlogPost = dispatch => {
-    return (id) => { // this inner function is what we're running inside the component
-        dispatch({ type: 'delete_blogpost', payload: id })
+const addBlogPost = (dispatch) => {
+  // function that describes how we want to change our data
+  return async (title, content, callback) => {
+    try {
+      await jsonServer.post("/blogposts", { title, content }); // 2nd arg is the info or data that we want to send to our server
+      if (callback) callback();
+    } catch (e) {
+      alert(e);
     }
-}
+  }; // inner function here is what we end up calling from inside our component
+};
 
-const editBlogPost = dispatch => {
-    return (id, title, content, callback) => {
-        dispatch({ 
-            type: 'edit_blogpost', 
-            payload: { id, title, content }})
-        if (callback) callback();
+const deleteBlogPost = (dispatch) => {
+  return async (id) => {
+    try {
+      await jsonServer.delete(`/blogposts/${id}`);
+      // this inner function is what we're running inside the component
+      dispatch({ type: "delete_blogpost", payload: id });
+    } catch (e) {
+      alert(e);
     }
-}
+  };
+};
 
+const editBlogPost = (dispatch) => {
+  return async (id, title, content, callback) => {
+    try {
+      await jsonServer.put(`/blogposts/${id}`, { title, content });
+    } catch (e) {
+      alert(e);
+    }
+    dispatch({
+      type: "edit_blogpost",
+      payload: { id, title, content },
+    });
+    if (callback) callback();
+  };
+};
 
-export const { Context, Provider } = createDataContext( // exporting two variables called Context and Provider
-    blogReducer, 
-    { addBlogPost, deleteBlogPost, editBlogPost },
-    [{
-        title: 'Hello World', 
-        id: Math.floor(Math.random() * 99999),
-        content: 'Hello, world',}]
-    );
+export const { Context, Provider } = createDataContext(
+  // exporting two variables called Context and Provider
+  blogReducer,
+  { addBlogPost, deleteBlogPost, editBlogPost, getBlogPosts },
+  []
+);
 
-    
-
-//createDataContext(reducer, actions, initialState)
-
-// when blogReducer runs, it returns a state, which rerenders the BlogProvider. we will get our new state variable returned from our reducer. hence, when index screen is rerendered, it will take in the new value of blogPosts, set it as data for flatlist.
-
-// export const BlogProvider = ({ children }) => {
-//     const [blogPosts, dispatch] = useReducer(blogReducer, []); // const [state, dispatch]. 
-
-//     /*
-//         blogPosts: state,
-//         dispatch: similar to action in our reducer,
-//         blogReducer: reducer function,
-//         []: initial state of blogPosts,
-
-//         const [state, dispatch] = useReducer(reducer, initialState)
-
-//         -----------------------------------------------------------
-//         blogReducer(state, action)
-
-//         state: currentState
-//         action: object with properties type and payload ==> what kind of action we dispatch. in this case, it is { type: 'add_blogpost' }
-//             type: identifies what type of action we want to do
-//             payload: identifies value of action // any
-
-//     */
-
-    
-
-
-
-//     return <BlogContext.Provider 
-//             value = {{
-//                 data: blogPosts, //array of blogPosts
-//                 addBlogPost
-//             }}
-//         >
-//         {children}
-//     </BlogContext.Provider>;
-// };
-
-// export default BlogContext;
-
-
-/*
+/* NOTES
     children: unrelated to context
 
     const App = () => {
