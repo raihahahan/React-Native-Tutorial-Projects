@@ -4,9 +4,6 @@ This repo contains the projects done in Stephen Grider's React Native Tutorial o
 
 ## Project List
 
-* Food Yelp
-* Blog Project
-
 ### Food Yelp
 
 * Hooks learnt: useState()
