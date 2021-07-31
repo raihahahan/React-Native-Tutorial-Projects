@@ -1,6 +1,6 @@
 # React-Native-Tutorial-Projects
 
-This repo contains the projects done in [Stephen Grider's React Native Tutorial](https://www.udemy.com/course/the-complete-react-native-and-redux-course/) on [Udemy](https://www.udemy.com/).
+This repo contains the projects done in [The Complete React Native + Hooks Course by Stephen Grider](https://www.udemy.com/course/the-complete-react-native-and-redux-course/) on [Udemy](https://www.udemy.com/).
 
 ## Project List
 
